@@ -3,8 +3,8 @@ import 'package:flutter_ecommerce_app/src/themes/light_color.dart';
 import 'package:flutter_ecommerce_app/src/widgets/BottomNavigationBar/bottom_curved_Painter.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  final Function(int) onIconPresedCallback;
-  CustomBottomNavigationBar({Key key, this.onIconPresedCallback})
+  final Function(int)? onIconPresedCallback;
+  CustomBottomNavigationBar({Key? key, this.onIconPresedCallback})
       : super(key: key);
 
   @override
@@ -16,8 +16,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     with TickerProviderStateMixin {
   int _selectedIndex = 0;
 
-  AnimationController _xController;
-  AnimationController _yController;
+  late AnimationController _xController;
+  late AnimationController _yController;
   @override
   void initState() {
     _xController = AnimationController(
@@ -106,7 +106,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
             begin: Curves.easeInExpo.transform(_yController.value),
             end: inCurve.transform(_yController.value),
           ).transform(_yController.velocity.sign * 0.5 + 0.5),
-          Theme.of(context).backgroundColor),
+          Theme.of(context).scaffoldBackgroundColor),
     );
   }
 
@@ -120,7 +120,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
 
   void _handlePressed(int index) {
     if (_selectedIndex == index || _xController.isAnimating) return;
-    widget.onIconPresedCallback(index);
+    widget.onIconPresedCallback!(index);
     setState(() {
       _selectedIndex = index;
     });
